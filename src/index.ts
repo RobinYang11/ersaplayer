@@ -1,14 +1,6 @@
 import config from './config';
 import DomTemplate from './domTemplate';
 
-interface PlayerProps {
-  url: string,
-  type: string,
-  rootElement: HTMLElement,
-  //插件
-  plugins: Array<Object>
-}
-
 class Player {
 
   /**
