@@ -5,7 +5,6 @@ class DomTemplate {
 
   constructor(props: PlayerProps) {
     this.dom = props.rootElement
-
   }
 
   private renderTemplate(template: string, pulgins: Array<Object>) {
