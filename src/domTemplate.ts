@@ -8,6 +8,39 @@ import htmlParser from 'htmlparser2';
 // console.log("#doc", doc);
 // document.body = doc;
 
+interface Plugin {
+  dom: string,
+  events: Array<Event>;
+}
+
+class MyPlugin extends Plugin {
+
+}
+
+function TestTemplate() {
+
+  const test = (e: Event) => {
+    console.log(e.target)
+  }
+
+  return `<div>
+      <div>
+        <div>
+          this is header
+        </div>
+        <div>
+          body
+          <button onclick="test"> click to </div>
+        </div>
+        <footer>
+          <h1>
+            this is footer
+          </h1>
+      </div>
+    <div>
+  `
+}
+
 const res = htmlParser.parseDOM(`<div onclick='test'  id="robin"><h1>hell</h1><button>click</button></div>`);
 console.log("#res", res)
 recursion(res, document.body);
@@ -30,7 +63,6 @@ function recursion(dom: Array<Object>, root: HTMLElement) {
       let ele: HTMLElement = document.createElement(i.name);
       if (i.attributes) {
         i.attributes.forEach((element: any) => {
-          // let attr: Attr = document.createAttribute(element.name)
 
           // 如果属性是按on 开头，则说明是 绑定事件 
           if (element.name.match(/^on/)) {
