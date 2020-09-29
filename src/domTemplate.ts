@@ -1,10 +1,15 @@
+import htmlParser from 'htmlparser2';
+
+const res = htmlParser.parseDOM("<div><h1>hell</h1><button>click</button></div>")
+console.log("#res", res)
 
 class DomTemplate {
 
   private dom: HTMLElement;
 
   constructor(props: PlayerProps) {
-    this.dom = props.rootElement
+    this.dom = props.rootElement;
+    props.rootElement.innerHTML = "<h1>this is content</h1>";
   }
 
   private renderTemplate(template: string, pulgins: Array<Object>) {

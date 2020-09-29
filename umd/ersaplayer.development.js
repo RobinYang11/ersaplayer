@@ -4,19 +4,24 @@
  * Released under the MIT License.
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.Player = factory());
-}(this, (function () { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('htmlparser2')) :
+  typeof define === 'function' && define.amd ? define(['htmlparser2'], factory) :
+  (global = global || self, global.Player = factory(global.htmlParser));
+}(this, (function (htmlParser) { 'use strict';
+
+  htmlParser = htmlParser && Object.prototype.hasOwnProperty.call(htmlParser, 'default') ? htmlParser['default'] : htmlParser;
 
   var config = {
       supportType: ['mp4', 'flv', 'hsf', 'avi'],
       htmlTemplate: "\n    <div></div>\n  "
   };
 
+  var res = htmlParser.parseDOM("<div><h1>hell</h1><button>click</button></div>");
+  console.log("#res", res);
   var DomTemplate = /** @class */ (function () {
       function DomTemplate(props) {
           this.dom = props.rootElement;
+          props.rootElement.innerHTML = "<h1>this is content</h1>";
       }
       DomTemplate.prototype.renderTemplate = function (template, pulgins) {
           this.dom.innerHTML = "\n      <div class=\"ersa-player\">\n          <div class=\"ersa-player-header\">\n              " + this.renderVideo("", "") + "\n          </div>\n          <div class=\"ersa-player-plugin-holder\">\n            " + this.generatePlugin(pulgins) + "\n          </div>\n      </div>\n    ";

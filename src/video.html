@@ -8,15 +8,23 @@
 </head>
 
 <body>
-    <div>
-        <div class="ersa-player">
-            <div class="ersa-player-header">
-
-            </div>
-            <div class="ersa-player-plugin-holder">
-            </div>
-        </div>
+    <div id="ct">
     </div>
+
+
+    <script>
+        var html = `
+          <div>
+            <h1> this is a title</h1>
+            <div>
+              this is content
+            </div>
+          </div>
+          `
+        var parser = new DOMParser();
+        var dom = parser.parseFromString(html, 'text/html')
+        console.log(dom)
+    </script>
 </body>
 
 </html>
