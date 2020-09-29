@@ -1,7 +1,55 @@
 import htmlParser from 'htmlparser2';
 
-const res = htmlParser.parseDOM("<div><h1>hell</h1><button>click</button></div>")
+// const test = () => {
+//   console.log("test")
+// }
+// var parser = new DOMParser();
+// let doc = parser.parseFromString(`<div id='test'><h1>this is a test</h1></div>`, "text/html")
+// console.log("#doc", doc);
+// document.body = doc;
+
+const res = htmlParser.parseDOM(`<div onclick='test'  id="robin"><h1>hell</h1><button>click</button></div>`);
 console.log("#res", res)
+recursion(res, document.body);
+// document.body
+
+//  所有的事件 都放到 一个 全局 变量中
+const ersaplayer: any = {
+  test: () => {
+    console.log("test")
+  }
+}
+
+function recursion(dom: Array<Object>, root: HTMLElement) {
+
+  dom.forEach((i: any) => {
+    if (i.type === "text") {
+      let text: any = document.createTextNode(i.data)
+      root.appendChild(text);
+    } else {
+      let ele: HTMLElement = document.createElement(i.name);
+      if (i.attributes) {
+        i.attributes.forEach((element: any) => {
+          // let attr: Attr = document.createAttribute(element.name)
+
+          // 如果属性是按on 开头，则说明是 绑定事件 
+          if (element.name.match(/^on/)) {
+            ele.addEventListener(element.name.replace('on', ''), () => {
+              ersaplayer[element.value]();
+            })
+          } else {
+            ele.setAttribute(element.name, element.value);
+          }
+
+        });
+      }
+      let a: HTMLElement = root.appendChild(ele);
+      if (i.children) {
+        recursion(i.children, a);
+      }
+    }
+  })
+}
 
 class DomTemplate {
 
@@ -9,7 +57,13 @@ class DomTemplate {
 
   constructor(props: PlayerProps) {
     this.dom = props.rootElement;
-    props.rootElement.innerHTML = "<h1>this is content</h1>";
+    // props.rootElement.innerHTML = "<h1>this is content</h1>";
+    // props.rootElement.appendChild(res);
+    // res.forEach((i: any) => {
+    //   console.log(i)
+    //   if (i.c)
+    //   // props.rootElement.appendChild(i)
+    // })
   }
 
   private renderTemplate(template: string, pulgins: Array<Object>) {
