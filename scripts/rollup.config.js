@@ -1,4 +1,4 @@
-import ts from 'rollup-plugin-typescript2'
+// import ts from 'rollup-plugin-typescript2'
 import path from 'path'
 
 const version = require('../package.json').version
@@ -39,7 +39,7 @@ function getConfig(target) {
   const opts = buildTemplate[target]
   console.log(opts)
   return {
-    input: path.resolve("ersaplayer", "../src/index.ts"),
+    input: path.resolve("ersaplayer", "../src/robin.js"),
     output: {
       file: opts.file,
       format: opts.format,
@@ -47,7 +47,7 @@ function getConfig(target) {
       name: opts.name
     },
     plugins: [
-      ts({ 'tsconfig': path.resolve('../ersaplayer', 'tsconfig.json') })
+      // ts({ 'tsconfig': path.resolve('../ersaplayer', 'tsconfig.json') })
     ]
   }
 }

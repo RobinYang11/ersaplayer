@@ -1,0 +1,9 @@
+{
+	"presets": [
+		"@babel/preset-env"
+	],
+	"plugins": [
+		//Solve Error[Support for the experimental syntax 'classProperties' isn't currently enabled]
+		"@babel/plugin-proposal-class-properties"
+	]
+}
